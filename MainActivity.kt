@@ -1,13 +1,16 @@
-package com.example.uomodelmachineri
+package com.example.kalkbmi
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.uomodelmachineri.databinding.ActivityMainBinding
+import com.example.kalkbmi.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity()
 {
@@ -16,13 +19,19 @@ class MainActivity : AppCompatActivity()
     val historyEntries = mutableListOf<Float>()
 
     fun addEntryToHistory(entry: Float) {
-        // If the list already has 20 items, remove the oldest one
+
         if (historyEntries.size == 20) {
             historyEntries.removeAt(0)
         }
-        // Add the new entry to the list
         historyEntries.add(entry)
     }
+
+    fun calcBMI(masa : Float, wzrost : Float) : Float
+    {
+        return 1.0f
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -35,7 +44,7 @@ class MainActivity : AppCompatActivity()
         {
             val intent = Intent(this, SecondaryActivity::class.java)
 
-            val floatArray = historyEntries.toFloatArray()
+            val floatArray = historyEntries.toString()
 
             intent.putExtra("history_key", floatArray)
 
@@ -44,20 +53,47 @@ class MainActivity : AppCompatActivity()
 
         binding.btnCalculate.setOnClickListener()
         {
-            var a : Float
-            var b : Float
+            val selectedRadioButton = findViewById<RadioButton>(binding.rgAktywnosc.checkedRadioButtonId)
 
-            a = binding.TBA.text.toString().toFloat()
-            b = binding.TBB.text.toString().toFloat()
+            var cena = 0
 
-            var c : Float = a+b
+           //when (selectedRadioButton.id) {
+           //    R.id.radioButton -> cena = 10
+           //    R.id.radioButton3 -> cena = 15
+           //    R.id.radioButton -> cena = 20
+           //    else -> {
+
+           //    }
+           //}
 
 
-            addEntryToHistory(c)
+            addEntryToHistory(12.0f)
 
-            Toast.makeText(this, c.toString(), Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, c.toString(), Toast.LENGTH_SHORT).show()
         }
 
 
     }
 }
+
+
+
+//Messagebox
+
+
+//val builder = AlertDialog.Builder(this)
+//builder.setTitle("Twoje zamówienie:")
+//builder.setMessage("Cena: $cena zł")
+//
+//builder.setPositiveButton("OK") { dialog, which ->
+//    // User clicked OK button
+//}
+//
+//val dialog = builder.create()
+//dialog.show()
+
+
+
+
+//Toast
+//Toast.makeText(this, c.toString(), Toast.LENGTH_SHORT).show()
